@@ -4,10 +4,11 @@
   "logo": "https://telegra.ph/file/7ce7a4e6434951983f6de.jpg",
   "keywords": [
     "telegram",
-    "group-management",
+    "group",
+    "management",
     "bot"
     ],
-  "repository": "https://github.com/Ayush131/RealAlexaBot.git",
+  "repository": "https://github.com/Ayush131/RealAlexaBot",
   "website": "https://realalexabot.unaux.com/home",
   "success_url": "https://telegra.ph/Alexa---A-Telegram-Bot-Project-08-20",
   "env": {
@@ -32,7 +33,7 @@
       "required": true
     },
     "URL": {
-      "value": "https://alexaisasexybot.herokuapp.com/"
+      "value": "https://alexaisasexybot.herokuapp.com/", 
     },
     "OPEN_WEATHER_MAP_APPID": {
       "description": "Get your own APPID from https://api.openweathermap.org/data/2.5/weather",
@@ -141,7 +142,7 @@
   }, {
     "url": "https://github.com/stevo550/buildpack-slug-cleaner"
   }],
-"Global Variables": [{
+  "Global Variables": [{
     "WEBHOOK": "None"
  }]
 }
