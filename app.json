@@ -13,22 +13,22 @@
   "env": {
     "API_KEY": {
       "description": "Get this value from my.telegram.org! Please do not steal",
-      "value": ""
+      "value": "",
       "required": true
     },
     "API_HASH": {
       "description": "Get this value from my.telegram.org! Please do not steal",
-      "value": ""
+      "value": "",
       "required": true
     },
     "STRING_SESSION": {
       "description": "Get this value by running python3 GenerateStringSession.py locally",
-      "value": ""
+      "value": "",
       "required": true
     },
     "TOKEN": {
       "description": "Get your bot token from botfather",
-      "value": ""
+      "value": "",
       "required": true
     },
     "URL": {
@@ -57,7 +57,7 @@
     },
     "GBAN_LOGS": {
       "description": "The group id for logging all gbans",
-      "value": "-100"
+      "value": "-100",
       "required": true
     },
     "REM_BG_API_KEY": {
@@ -89,12 +89,12 @@
     },
     "OWNER_ID": {
       "description": "An integer of consisting of your ID",
-      "value": ""
+      "value": "",
       "required": true
     },
     "OWNER_USERNAME": {
       "description": "Your username",
-      "value": ""
+      "value": "",
       "required": true
     },
     "MESSAGE_DUMP": {
