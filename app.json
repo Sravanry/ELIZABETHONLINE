@@ -116,7 +116,8 @@
       "description": "For Carbon.py",
       "value": "/app/.chromedriver/bin/chromedriver",
       "required": false
-    },
+    }
+  },
   "addons": [{
     "plan": "heroku-postgresql",
     "options": {
