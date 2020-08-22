@@ -1,20 +1,18 @@
 import logging
 import os
 import sys
-from telethon import TelegramClient
-import telegram.ext as tg
-import os
+import threading
 from distutils.util import strtobool as sb
+from importlib import import_module
 from logging import DEBUG, INFO, basicConfig, getLogger
 from sys import version_info
+
+import telegram.ext as tg
 from dotenv import load_dotenv
 from pyDownload import Downloader
 from telethon import TelegramClient
-from telethon.sessions import StringSession
-from importlib import import_module
-import os
 from telethon.errors.rpcerrorlist import PhoneNumberInvalidError
-import threading
+from telethon.sessions import StringSession
 
 # enable logging
 logging.basicConfig(
@@ -91,11 +89,9 @@ if ENV:
     CASH_API_KEY = os.environ.get("CASH_API_KEY", None)
     TIME_API_KEY = os.environ.get("TIME_API_KEY", None)
     # Load at end to ensure all prev variables have been set
-    from alexa.modules.helper_funcs.handlers import (
-        CustomCommandHandler,
-        CustomRegexHandler,
-        GbanLockHandler,
-    )
+    from alexa.modules.helper_funcs.handlers import (CustomCommandHandler,
+                                                     CustomRegexHandler,
+                                                     GbanLockHandler)
 
     # make sure the regex handler can take extra kwargs
     tg.RegexHandler = CustomRegexHandler
@@ -111,11 +107,8 @@ if ENV:
     TEMPORARY_DATA = os.environ.get("TEMPORARY_DATA", None)
     SPAMMERS = list(SPAMMERS)
     try:
-        from alexa.antispam import (
-            antispam_restrict_user,
-            antispam_cek_user,
-            detect_user,
-        )
+        from alexa.antispam import (antispam_cek_user, antispam_restrict_user,
+                                    detect_user)
 
         antispam_module = True
     except ModuleNotFoundError:

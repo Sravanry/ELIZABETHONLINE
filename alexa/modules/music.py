@@ -1,21 +1,18 @@
-from telethon import events
-import subprocess
-from telethon.errors import (
-    MessageEmptyError,
-    MessageTooLongError,
-    MessageNotModifiedError,
-)
-import io
 import asyncio
-import time
-from alexa.events import register
 import glob
+import io
 import os
-import spotdl
 import subprocess
-from alexa import LOGGER, tbot
-from telethon import types
+import time
+
+import spotdl
+from telethon import events, types
+from telethon.errors import (MessageEmptyError, MessageNotModifiedError,
+                             MessageTooLongError)
 from telethon.tl import functions
+
+from alexa import LOGGER, tbot
+from alexa.events import register
 
 
 async def is_register_admin(chat, user):

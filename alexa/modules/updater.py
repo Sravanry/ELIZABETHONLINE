@@ -7,10 +7,10 @@
 This module updates the alexa based on Upstream revision
 """
 
-from os import remove, execle, path, makedirs, getenv, environ
-from shutil import rmtree
 import asyncio
 import sys
+from os import environ, execle, getenv, makedirs, path, remove
+from shutil import rmtree
 
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
