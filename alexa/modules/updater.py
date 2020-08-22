@@ -141,11 +141,11 @@ async def upstream(ups):
         try:
             remote.push(refspec="HEAD:refs/heads/master", force=True)
         except GitCommandError as e:
-            await ups.edit(f'{txt}\n`Early failure! {e}`')
+            await lol.edit(f'{txt}\n`Early failure! {e}`')
             return
     else:
         # Heroku configs not set, just restart the bot
-        await ups.edit(
+        await lol.edit(
             '`Successfully Updated!\n'
             'Alexa is restarting... Wait for a few seconds, then '
             'check if Alexa is alive by using the "/start" command.`')
