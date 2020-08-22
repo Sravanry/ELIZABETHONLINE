@@ -105,7 +105,7 @@
                 },
                 "WALL_API": {
                        "description": "Get one from https://wall.alphacoders.com/api.php",
-                       "value": "-xyz",
+                       "value": "-xyz"
                 },
 		"STRICT_GBAN": {
 			"description": "Enforce gbans across new groups as well as old groups. When a gbanned user talks, he will be banned",
