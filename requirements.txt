@@ -65,3 +65,4 @@ fontTools
 pymongo
 dnspython
 heroku3
+gitpython
