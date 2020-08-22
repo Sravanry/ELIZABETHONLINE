@@ -14,7 +14,7 @@ import heroku3
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
 
-from alexa import HEROKU_APIKEY, HEROKU_APPNAME, STRING_SESSION
+from alexa import HEROKU_APIKEY, HEROKU_APPNAME, STRING_SESSION, OWNER_ID
 from alexa.events import register
 
 
@@ -38,7 +38,7 @@ async def upstream(ups):
     "For .update command, check if the bot is up to date, update if specified"
     lol = await ups.reply("`Checking for updates, please wait....`")
     conf = ups.pattern_match.group(1)
-    off_repo = 'https://github.com/Ayush1311/RealAlexaBot'
+    off_repo = 'https://github.com/Ayush1311/RealAlexaBot.git'
 
     try:
         txt = "`Oops.. Updater cannot continue due to "
