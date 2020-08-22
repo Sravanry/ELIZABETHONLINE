@@ -6,12 +6,15 @@ import subprocess
 import time
 
 import spotdl
-from telethon import events, types
-from telethon.errors import (MessageEmptyError, MessageNotModifiedError,
-                             MessageTooLongError)
+from telethon import events
+from telethon import types
+from telethon.errors import MessageEmptyError
+from telethon.errors import MessageNotModifiedError
+from telethon.errors import MessageTooLongError
 from telethon.tl import functions
 
-from alexa import LOGGER, tbot
+from alexa import LOGGER
+from alexa import tbot
 from alexa.events import register
 
 

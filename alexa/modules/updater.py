@@ -6,16 +6,24 @@
 """
 This module updates the alexa based on Upstream revision
 """
-
 import asyncio
 import sys
-from os import environ, execle, getenv, makedirs, path, remove
+from os import environ
+from os import execle
+from os import getenv
+from os import makedirs
+from os import path
+from os import remove
 from shutil import rmtree
 
 from git import Repo
-from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
+from git.exc import GitCommandError
+from git.exc import InvalidGitRepositoryError
+from git.exc import NoSuchPathError
 
-from alexa import HEROKU_APIKEY, HEROKU_APPNAME, UPSTREAM_REPO_URL
+from alexa import HEROKU_APIKEY
+from alexa import HEROKU_APPNAME
+from alexa import UPSTREAM_REPO_URL
 from alexa.events import register
 
 requirements_path = path.join(

@@ -14,22 +14,30 @@ import subprocess
 import sys
 import textwrap
 import time
-import urllib
 import urllib.request
 from asyncio import sleep
 from collections import deque
-from datetime import datetime, timedelta, tzinfo
+from datetime import datetime
+from datetime import timedelta
+from datetime import tzinfo
 from getpass import getuser
 from html import unescape
 from io import BytesIO
-from os import execl, remove
-from random import choice, getrandbits, randint, randrange
-from re import findall, sub
+from os import execl
+from os import remove
+from random import choice
+from random import getrandbits
+from random import randint
+from random import randrange
+from re import findall
+from re import sub
 from shutil import rmtree
 from sys import executable
 from time import sleep
-from typing import List, Optional
-from urllib.error import HTTPError, URLError
+from typing import List
+from typing import Optional
+from urllib.error import HTTPError
+from urllib.error import URLError
 from urllib.parse import quote_plus
 from urllib.request import urlopen
 
@@ -54,89 +62,152 @@ from fontTools.ttLib import TTFont
 from fontTools.unicode import Unicode
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-from gtts import gTTS, gTTSError
+from gtts import gTTS
+from gtts import gTTSError
 from hurry.filesize import size
-from PIL import Image, ImageDraw, ImageEnhance, ImageFont, ImageOps
+from PIL import Image
+from PIL import ImageDraw
+from PIL import ImageEnhance
+from PIL import ImageFont
+from PIL import ImageOps
 from PyDictionary import PyDictionary
 from pyDownload import Downloader
 from pymongo import MongoClient
 from requests import get
-from telegram import (Bot, Chat, ChatAction, InlineKeyboardButton,
-                      InlineKeyboardMarkup, InputMediaPhoto, Message,
-                      MessageEntity, ParseMode, ReplyKeyboardMarkup,
-                      ReplyKeyboardRemove, TelegramError, Update, User)
+from telegram import Bot
+from telegram import Chat
+from telegram import ChatAction
+from telegram import InlineKeyboardButton
+from telegram import InlineKeyboardMarkup
+from telegram import InputMediaPhoto
+from telegram import Message
+from telegram import MessageEntity
+from telegram import ParseMode
+from telegram import ReplyKeyboardMarkup
+from telegram import ReplyKeyboardRemove
+from telegram import TelegramError
+from telegram import Update
+from telegram import User
 from telegram.error import BadRequest
-from telegram.ext import CommandHandler, Filters, MessageHandler, run_async
+from telegram.ext import CommandHandler
+from telegram.ext import Filters
+from telegram.ext import MessageHandler
+from telegram.ext import run_async
 from telegram.ext.dispatcher import run_async
-from telegram.utils.helpers import escape_markdown, mention_html
+from telegram.utils.helpers import escape_markdown
+from telegram.utils.helpers import mention_html
 from telegraph import Telegraph
 from telethon import *
-from telethon import events, functions
-from telethon.errors import (BadRequestError, ChatAdminRequiredError,
-                             FloodWaitError, ImageProcessFailedError,
-                             PhotoCropSizeSmallError, UserAdminInvalidError,
-                             YouBlockedUserError)
-from telethon.errors.rpcerrorlist import (ChatAdminRequiredError,
-                                          MessageTooLongError,
-                                          UserIdInvalidError,
-                                          YouBlockedUserError)
-from telethon.tl import functions, types
+from telethon import events
+from telethon import functions
+from telethon.errors import BadRequestError
+from telethon.errors import ChatAdminRequiredError
+from telethon.errors import FloodWaitError
+from telethon.errors import ImageProcessFailedError
+from telethon.errors import PhotoCropSizeSmallError
+from telethon.errors import UserAdminInvalidError
+from telethon.errors import YouBlockedUserError
+from telethon.errors.rpcerrorlist import ChatAdminRequiredError
+from telethon.errors.rpcerrorlist import MessageTooLongError
+from telethon.errors.rpcerrorlist import UserIdInvalidError
+from telethon.errors.rpcerrorlist import YouBlockedUserError
+from telethon.tl import functions
+from telethon.tl import types
 from telethon.tl.functions.account import UpdateNotifySettingsRequest
-from telethon.tl.functions.channels import (EditAdminRequest,
-                                            EditBannedRequest,
-                                            EditPhotoRequest)
+from telethon.tl.functions.channels import EditAdminRequest
+from telethon.tl.functions.channels import EditBannedRequest
+from telethon.tl.functions.channels import EditPhotoRequest
 from telethon.tl.functions.messages import UpdatePinnedMessageRequest
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import *
-from telethon.tl.types import (ChannelParticipantAdmin,
-                               ChannelParticipantCreator,
-                               ChannelParticipantsAdmins,
-                               ChannelParticipantsBots,
-                               ChannelParticipantsKicked, ChatAdminRights,
-                               ChatBannedRights, DocumentAttributeAudio,
-                               InputMediaDice, InputMessagesFilterDocument,
-                               MessageEntityMentionName, MessageMediaPhoto,
-                               PeerChannel, PeerChat, UserStatusEmpty,
-                               UserStatusLastMonth, UserStatusLastWeek,
-                               UserStatusOffline, UserStatusOnline,
-                               UserStatusRecently)
+from telethon.tl.types import ChannelParticipantAdmin
+from telethon.tl.types import ChannelParticipantCreator
+from telethon.tl.types import ChannelParticipantsAdmins
+from telethon.tl.types import ChannelParticipantsBots
+from telethon.tl.types import ChannelParticipantsKicked
+from telethon.tl.types import ChatAdminRights
+from telethon.tl.types import ChatBannedRights
+from telethon.tl.types import DocumentAttributeAudio
+from telethon.tl.types import InputMediaDice
+from telethon.tl.types import InputMessagesFilterDocument
+from telethon.tl.types import MessageEntityMentionName
+from telethon.tl.types import MessageMediaPhoto
+from telethon.tl.types import PeerChannel
+from telethon.tl.types import PeerChat
+from telethon.tl.types import UserStatusEmpty
+from telethon.tl.types import UserStatusLastMonth
+from telethon.tl.types import UserStatusLastWeek
+from telethon.tl.types import UserStatusOffline
+from telethon.tl.types import UserStatusOnline
+from telethon.tl.types import UserStatusRecently
 from tswift import Song
 from wikipedia import summary
-from wikipedia.exceptions import DisambiguationError, PageError
+from wikipedia.exceptions import DisambiguationError
+from wikipedia.exceptions import PageError
 from youtube_dl import YoutubeDL
-from youtube_dl.utils import (ContentTooShortError, DownloadError,
-                              ExtractorError, GeoRestrictedError,
-                              MaxDownloadsReached, PostProcessingError,
-                              UnavailableVideoError, XAttrMetadataError)
+from youtube_dl.utils import ContentTooShortError
+from youtube_dl.utils import DownloadError
+from youtube_dl.utils import ExtractorError
+from youtube_dl.utils import GeoRestrictedError
+from youtube_dl.utils import MaxDownloadsReached
+from youtube_dl.utils import PostProcessingError
+from youtube_dl.utils import UnavailableVideoError
+from youtube_dl.utils import XAttrMetadataError
 
 import alexa.modules.sql.users_sql as sql
 from alexa import *
-from alexa import (BAN_STICKER, CHROME_DRIVER, GOOGLE_CHROME_BIN,
-                   IBM_WATSON_CRED_PASSWORD, IBM_WATSON_CRED_URL, LOGGER,
-                   OCR_SPACE_API_KEY, OPENWEATHERMAP_ID, OWNER_ID, SUDO_USERS,
-                   SUPPORT_USERS, TEMP_DOWNLOAD_DIRECTORY, TIME_API_KEY,
-                   WHITELIST_USERS, WOLFRAM_ID, YOUTUBE_API_KEY, dispatcher,
-                   tbot, updater)
-from alexa.__main__ import GDPR, STATS, USER_INFO
-from alexa.events import alexabot, register
+from alexa import BAN_STICKER
+from alexa import CHROME_DRIVER
+from alexa import dispatcher
+from alexa import GOOGLE_CHROME_BIN
+from alexa import IBM_WATSON_CRED_PASSWORD
+from alexa import IBM_WATSON_CRED_URL
+from alexa import LOGGER
+from alexa import OCR_SPACE_API_KEY
+from alexa import OPENWEATHERMAP_ID
+from alexa import OWNER_ID
+from alexa import SUDO_USERS
+from alexa import SUPPORT_USERS
+from alexa import tbot
+from alexa import TEMP_DOWNLOAD_DIRECTORY
+from alexa import TIME_API_KEY
+from alexa import updater
+from alexa import WHITELIST_USERS
+from alexa import WOLFRAM_ID
+from alexa import YOUTUBE_API_KEY
+from alexa.__main__ import GDPR
+from alexa.__main__ import STATS
+from alexa.__main__ import USER_INFO
+from alexa.events import alexabot
+from alexa.events import register
 from alexa.google_imgs import googleimagesdownload
 from alexa.modules.disable import DisableAbleCommandHandler
-from alexa.modules.helper_funcs.chat_status import (bot_admin, can_pin,
-                                                    can_promote, can_restrict,
-                                                    is_user_admin,
-                                                    is_user_ban_protected,
-                                                    is_user_in_chat,
-                                                    user_admin)
-from alexa.modules.helper_funcs.extraction import (extract_user,
-                                                   extract_user_and_text)
+from alexa.modules.helper_funcs.chat_status import bot_admin
+from alexa.modules.helper_funcs.chat_status import can_pin
+from alexa.modules.helper_funcs.chat_status import can_promote
+from alexa.modules.helper_funcs.chat_status import can_restrict
+from alexa.modules.helper_funcs.chat_status import is_user_admin
+from alexa.modules.helper_funcs.chat_status import is_user_ban_protected
+from alexa.modules.helper_funcs.chat_status import is_user_in_chat
+from alexa.modules.helper_funcs.chat_status import user_admin
+from alexa.modules.helper_funcs.extraction import extract_user
+from alexa.modules.helper_funcs.extraction import extract_user_and_text
 from alexa.modules.helper_funcs.filters import CustomFilters
 from alexa.modules.helper_funcs.string_handling import extract_time
-from alexa.modules.helper_funcs.telethon.chat_status import (
-    alexa_is_adminn, can_add_adminss, can_ban_userss, can_change_infoo,
-    can_delete_messagess, can_invite_userss, can_pin_messagess, is_user_adminn,
-    is_user_in_chatt, user_is_adminn, user_is_ban_protectedd)
+from alexa.modules.helper_funcs.telethon.chat_status import alexa_is_adminn
+from alexa.modules.helper_funcs.telethon.chat_status import can_add_adminss
+from alexa.modules.helper_funcs.telethon.chat_status import can_ban_userss
+from alexa.modules.helper_funcs.telethon.chat_status import can_change_infoo
+from alexa.modules.helper_funcs.telethon.chat_status import can_delete_messagess
+from alexa.modules.helper_funcs.telethon.chat_status import can_invite_userss
+from alexa.modules.helper_funcs.telethon.chat_status import can_pin_messagess
+from alexa.modules.helper_funcs.telethon.chat_status import is_user_adminn
+from alexa.modules.helper_funcs.telethon.chat_status import is_user_in_chatt
+from alexa.modules.helper_funcs.telethon.chat_status import user_is_adminn
+from alexa.modules.helper_funcs.telethon.chat_status import user_is_ban_protectedd
 from alexa.modules.log_channel import loggable
-from alexa.modules.rextester.api import CompilerError, Rextester
+from alexa.modules.rextester.api import CompilerError
+from alexa.modules.rextester.api import Rextester
 from alexa.modules.rextester.langs import languages
 from alexa.modules.sql.translation import prev_locale
 from alexa.modules.translations.strings import tld
