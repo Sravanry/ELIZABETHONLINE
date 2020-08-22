@@ -2,12 +2,7 @@
   "name": "RealAlexaBot",
   "description": "A Powerful Telegram Bot written in PTB and Telethon",
   "logo": "https://telegra.ph/file/7ce7a4e6434951983f6de.jpg",
-  "keywords": [
-    "telegram",
-    "group",
-    "management",
-    "bot"
-  ],
+  "keywords": ["telegram", "group", "management", "bot"],
   "repository": "https://github.com/Ayush131/RealAlexaBot",
   "website": "https://realalexabot.unaux.com/home",
   "success_url": "https://telegra.ph/Alexa---A-Telegram-Bot-Project-08-20",
