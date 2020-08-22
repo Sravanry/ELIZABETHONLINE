@@ -95,6 +95,9 @@ if ENV:
     STRING_SESSION = os.environ.get("STRING_SESSION", None)   
     HEROKU_APIKEY = os.environ.get("HEROKU_APIKEY", None)
     HEROKU_APPNAME = os.environ.get("HEROKU_APPNAME", None)
+    UPSTREAM_REPO_URL = os.environ.get(
+    "UPSTREAM_REPO_URL",
+    "https://github.com/Ayush1311/RealAlexaBot.git")
     TEMPORARY_DATA = os.environ.get('TEMPORARY_DATA', None)
     SPAMMERS = list(SPAMMERS)
     try:
