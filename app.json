@@ -1,160 +1,174 @@
 {
-	"name": "RealAlexaBot",
-	"description": "A Powerful Telegram Bot written in PTB and Telethon",
-	"logo": "https://telegra.ph/file/7ce7a4e6434951983f6de.jpg",
-	"keywords": [
-		"telegram",
-		"group",
-		"management",
-		"bot"
-	],
-	"repository": "https://github.com/Ayush131/RealAlexaBot",
-	"website": "https://realalexabot.unaux.com/home",
-	"success_url": "https://telegra.ph/Alexa---A-Telegram-Bot-Project-08-20",
-	"env": {
-		"API_KEY": {
-			"description": "Get this value from my.telegram.org! Please do not steal",
-			"value": "",
-			"required": true
-		},
-		"API_HASH": {
-			"description": "Get this value from my.telegram.org! Please do not steal",
-			"value": "",
-			"required": true
-		},
-		"STRING_SESSION": {
-			"description": "Get this value by running python3 GenerateStringSession.py locally",
-			"value": "",
-			"required": true
-		},
-		"TOKEN": {
-			"description": "Get your bot token from botfather",
-			"value": "",
-			"required": true
-		},
-                "HEROKU_APIKEY": {
-                        "description": "Get from 'https://dashboard.heroku.com/account'. It's needed for bot updates",
-                        "required": false
-                },
-                "HEROKU_APPNAME": {
-                        "description": "Add the Heroku app name here. It's needed for bot updates",
-                        "required": false
-                },
-		"OPENWEATHERMAP_ID": {
-			"description": "Get your own APPID from https://api.openweathermap.org/data/2.5/weather",
-			"required": false
-		},
-		"IBM_WATSON_CRED_URL": {
-			"description": "This is required for the speech to text module. Get your USERNAME from https://console.bluemix.net/docs/services/speech-to-text/getting-started.html",
-			"required": false
-		},
-		"IBM_WATSON_CRED_PASSWORD": {
-			"description": "This is required for the speech to text module. Get your PASSWORD from https://console.bluemix.net/docs/services/speech-to-text/getting-started.html",
-			"required": false
-		},
-		"LYDIA_API_KEY": {
-			"description": "This Module Needs CoffeeHouse API to work. so Join https://telegram.dog/IntellivoidDev and send #activateapi and follow instructions",
-			"value": "GET API TO MAKE AI WORK",
-			"required": false
-		},
-		"OCR_SPACE_API_KEY": {
-			"description": "Get an API Key from http://OCR.Space",
-			"required": false
-		},
-		"GBAN_LOGS": {
-			"description": "The group id for logging all gbans",
-			"value": "-100",
-			"required": true
-		},
-		"REM_BG_API_KEY": {
-			"description": "Get your own API key from https://www.remove.bg/ or feel free to use http://telegram.dog/Remove_BGBot",
-			"required": false
-		},
-		"SUDO_USERS": {
-			"description": "List of user id's who will have SUDO rights in your bot(they can't be banned/warned etc. by the bot)",
-			"value": "",
-			"required": false
-		},
-		"YOUTUBE_API_KEY": {
-			"description": "Place your YouTube API Key here",
-			"required": false
-		},
-		"MONGO_DB_URI": {
-			"description": "Get your guide from https://telegra.ph/Mongo-DB-12-24",
-			"required": false
-		},
-		"OWNER_ID": {
-			"description": "An integer of consisting of your ID",
-			"value": "",
-			"required": true
-		},
-		"OWNER_USERNAME": {
-			"description": "Your username",
-			"value": "",
-			"required": true
-		},
-		"MESSAGE_DUMP": {
-			"description": "optional: a chat where your replied saved messages are stored, to stop people deleting their old",
-			"value": "",
-			"required": true
-		},
-                "TIME_API_KEY": {
-                        "description": "Required for timezone information",
-                        "value": "-xyz"
-                },
-                "CASH_API_KEY": {
-                       "description": "Required for currency converter",
-                       "value": "-xyz"
-                },
-                "WOLFRAM_ID": {
-                       "description": "Required for Assistant module, get your own key from wolframalpha.com",
-                       "value": "-xyz"
-                },
-                "WALL_API": {
-                       "description": "Get one from https://wall.alphacoders.com/api.php",
-                       "value": "-xyz"
-                },
-		"STRICT_GBAN": {
-			"description": "Enforce gbans across new groups as well as old groups. When a gbanned user talks, he will be banned",
-			"value": "True"
-		},
-		"GOOGLE_CHROME_BIN": {
-			"description": "For Carbon.py",
-			"value": "/app/.apt/usr/bin/google-chrome",
-			"required": false
-		},
-		"CHROME_DRIVER": {
-			"description": "For Carbon.py",
-			"value": "/app/.chromedriver/bin/chromedriver",
-			"required": false
-		}
-	},
-	"addons": [{
-		"plan": "heroku-postgresql",
-		"options": {
-			"version": "12"
-		}
-	}],
-	"buildpacks": [{
-		"url": "https://github.com/heroku/heroku-buildpack-python"
-	}, {
-		"url": "https://github.com/heroku/heroku-buildpack-redis"
-	}, {
-		"url": "https://github.com/HasibulKabir/heroku-buildpack-rarlab"
-	}, {
-		"url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
-	}, {
-		"url": "https://github.com/opendoor-labs/heroku-buildpack-p7zip"
-	}, {
-		"url": "https://github.com/amivin/aria2-heroku"
-	}, {
-		"url": "https://github.com/heroku/heroku-buildpack-google-chrome"
-	}, {
-		"url": "https://github.com/heroku/heroku-buildpack-chromedriver"
-	}, {
-		"url": "https://github.com/stevo550/buildpack-slug-cleaner"
-	}],
-	"Global Variables": [{
-		"WEBHOOK": "None"
-	}]
+  "name": "RealAlexaBot",
+  "description": "A Powerful Telegram Bot written in PTB and Telethon",
+  "logo": "https://telegra.ph/file/7ce7a4e6434951983f6de.jpg",
+  "keywords": [
+    "telegram",
+    "group",
+    "management",
+    "bot"
+  ],
+  "repository": "https://github.com/Ayush131/RealAlexaBot",
+  "website": "https://realalexabot.unaux.com/home",
+  "success_url": "https://telegra.ph/Alexa---A-Telegram-Bot-Project-08-20",
+  "env": {
+    "API_KEY": {
+      "description": "Get this value from my.telegram.org! Please do not steal",
+      "value": "",
+      "required": true
+    },
+    "API_HASH": {
+      "description": "Get this value from my.telegram.org! Please do not steal",
+      "value": "",
+      "required": true
+    },
+    "STRING_SESSION": {
+      "description": "Get this value by running python3 GenerateStringSession.py locally",
+      "value": "",
+      "required": true
+    },
+    "TOKEN": {
+      "description": "Get your bot token from botfather",
+      "value": "",
+      "required": true
+    },
+    "HEROKU_APIKEY": {
+      "description": "Get from 'https://dashboard.heroku.com/account'. It's needed for bot updates",
+      "required": false
+    },
+    "HEROKU_APPNAME": {
+      "description": "Add the Heroku app name here. It's needed for bot updates",
+      "required": false
+    },
+    "OPENWEATHERMAP_ID": {
+      "description": "Get your own APPID from https://api.openweathermap.org/data/2.5/weather",
+      "required": false
+    },
+    "IBM_WATSON_CRED_URL": {
+      "description": "This is required for the speech to text module. Get your USERNAME from https://console.bluemix.net/docs/services/speech-to-text/getting-started.html",
+      "required": false
+    },
+    "IBM_WATSON_CRED_PASSWORD": {
+      "description": "This is required for the speech to text module. Get your PASSWORD from https://console.bluemix.net/docs/services/speech-to-text/getting-started.html",
+      "required": false
+    },
+    "LYDIA_API_KEY": {
+      "description": "This Module Needs CoffeeHouse API to work. so Join https://telegram.dog/IntellivoidDev and send #activateapi and follow instructions",
+      "value": "GET API TO MAKE AI WORK",
+      "required": false
+    },
+    "OCR_SPACE_API_KEY": {
+      "description": "Get an API Key from http://OCR.Space",
+      "required": false
+    },
+    "GBAN_LOGS": {
+      "description": "The group id for logging all gbans",
+      "value": "-100",
+      "required": true
+    },
+    "REM_BG_API_KEY": {
+      "description": "Get your own API key from https://www.remove.bg/ or feel free to use http://telegram.dog/Remove_BGBot",
+      "required": false
+    },
+    "SUDO_USERS": {
+      "description": "List of user id's who will have SUDO rights in your bot(they can't be banned/warned etc. by the bot)",
+      "value": "",
+      "required": false
+    },
+    "YOUTUBE_API_KEY": {
+      "description": "Place your YouTube API Key here",
+      "required": false
+    },
+    "MONGO_DB_URI": {
+      "description": "Get your guide from https://telegra.ph/Mongo-DB-12-24",
+      "required": false
+    },
+    "OWNER_ID": {
+      "description": "An integer of consisting of your ID",
+      "value": "",
+      "required": true
+    },
+    "OWNER_USERNAME": {
+      "description": "Your username",
+      "value": "",
+      "required": true
+    },
+    "MESSAGE_DUMP": {
+      "description": "optional: a chat where your replied saved messages are stored, to stop people deleting their old",
+      "value": "",
+      "required": true
+    },
+    "TIME_API_KEY": {
+      "description": "Required for timezone information",
+      "value": "-xyz"
+    },
+    "CASH_API_KEY": {
+      "description": "Required for currency converter",
+      "value": "-xyz"
+    },
+    "WOLFRAM_ID": {
+      "description": "Required for Assistant module, get your own key from wolframalpha.com",
+      "value": "-xyz"
+    },
+    "WALL_API": {
+      "description": "Get one from https://wall.alphacoders.com/api.php",
+      "value": "-xyz"
+    },
+    "STRICT_GBAN": {
+      "description": "Enforce gbans across new groups as well as old groups. When a gbanned user talks, he will be banned",
+      "value": "True"
+    },
+    "GOOGLE_CHROME_BIN": {
+      "description": "For Carbon.py",
+      "value": "/app/.apt/usr/bin/google-chrome",
+      "required": false
+    },
+    "CHROME_DRIVER": {
+      "description": "For Carbon.py",
+      "value": "/app/.chromedriver/bin/chromedriver",
+      "required": false
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql",
+      "options": {
+        "version": "12"
+      }
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-python"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-redis"
+    },
+    {
+      "url": "https://github.com/HasibulKabir/heroku-buildpack-rarlab"
+    },
+    {
+      "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+    },
+    {
+      "url": "https://github.com/opendoor-labs/heroku-buildpack-p7zip"
+    },
+    {
+      "url": "https://github.com/amivin/aria2-heroku"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-google-chrome"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-chromedriver"
+    },
+    {
+      "url": "https://github.com/stevo550/buildpack-slug-cleaner"
+    }
+  ],
+  "Global Variables": [
+    {
+      "WEBHOOK": "None"
+    }
+  ]
 }
