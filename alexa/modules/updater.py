@@ -36,7 +36,7 @@ async def is_off_br(br):
 @register(pattern="^/update(?: |$)(.*)")
 async def upstream(ups):
     "For .update command, check if the bot is up to date, update if specified"
-    lol = await ups.edit("`Checking for updates, please wait....`")
+    lol = await ups.reply("`Checking for updates, please wait....`")
     conf = ups.pattern_match.group(1)
     off_repo = 'https://github.com/Ayush1311/RealAlexaBot'
 
