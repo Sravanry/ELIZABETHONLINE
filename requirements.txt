@@ -64,3 +64,4 @@ idna<2.9,>=2.5
 fontTools
 pymongo
 dnspython
+heroku3
