@@ -1,20 +1,21 @@
 import logging
 import os
 import sys
-from telethon import TelegramClient
-import telegram.ext as tg
-import os
+import threading
 from distutils.util import strtobool as sb
-from logging import DEBUG, INFO, basicConfig, getLogger
+from importlib import import_module
+from logging import basicConfig
+from logging import DEBUG
+from logging import getLogger
+from logging import INFO
 from sys import version_info
+
+import telegram.ext as tg
 from dotenv import load_dotenv
 from pyDownload import Downloader
 from telethon import TelegramClient
-from telethon.sessions import StringSession
-from importlib import import_module
-import os
 from telethon.errors.rpcerrorlist import PhoneNumberInvalidError
-import threading
+from telethon.sessions import StringSession
 
 # enable logging
 logging.basicConfig(
@@ -22,136 +23,154 @@ logging.basicConfig(
     level=logging.INFO)
 
 LOGGER = logging.getLogger(__name__)
-ENV = bool(os.environ.get('ENV', True))
+ENV = bool(os.environ.get("ENV", True))
 if ENV:
-    TOKEN = os.environ.get('TOKEN', None)
+    TOKEN = os.environ.get("TOKEN", None)
     try:
-        OWNER_ID = int(os.environ.get('OWNER_ID', None))
+        OWNER_ID = int(os.environ.get("OWNER_ID", None))
     except ValueError:
         raise Exception("Your OWNER_ID env variable is not a valid integer.")
     try:
         SPAMMERS = {int(x) for x in os.environ.get("SPAMMERS", "").split()}
     except ValueError:
-        raise Exception("Your spammers users list does not contain valid integers.")
-    MESSAGE_DUMP = os.environ.get('MESSAGE_DUMP', None)
+        raise Exception(
+            "Your spammers users list does not contain valid integers.")
+    MESSAGE_DUMP = os.environ.get("MESSAGE_DUMP", None)
     OWNER_USERNAME = os.environ.get("OWNER_USERNAME", None)
     try:
-        SUDO_USERS = set(int(x) for x in os.environ.get("SUDO_USERS", "").split())
+        SUDO_USERS = set(
+            int(x) for x in os.environ.get("SUDO_USERS", "").split())
     except ValueError:
-        raise Exception("Your sudo users list does not contain valid integers.")
+        raise Exception(
+            "Your sudo users list does not contain valid integers.")
     try:
-        SUPPORT_USERS = set(int(x) for x in os.environ.get("SUPPORT_USERS", "").split())
+        SUPPORT_USERS = set(
+            int(x) for x in os.environ.get("SUPPORT_USERS", "").split())
     except ValueError:
-        raise Exception("Your support users list does not contain valid integers.")
+        raise Exception(
+            "Your support users list does not contain valid integers.")
     try:
-        WHITELIST_USERS = set(int(x) for x in os.environ.get("WHITELIST_USERS", "").split())
+        WHITELIST_USERS = set(
+            int(x) for x in os.environ.get("WHITELIST_USERS", "").split())
     except ValueError:
-        raise Exception("Your whitelisted users list does not contain valid integers.")
-    WEBHOOK = bool(os.environ.get('WEBHOOK', False))
-    URL = os.environ.get('URL', "")  # Does not contain token
+        raise Exception(
+            "Your whitelisted users list does not contain valid integers.")
+    WEBHOOK = bool(os.environ.get("WEBHOOK", False))
+    URL = os.environ.get("URL", "")  # Does not contain token
     API_KEY = os.environ.get("API_KEY", None)
     API_HASH = os.environ.get("API_HASH", None)
-    PORT = int(os.environ.get('PORT', 5432))
+    PORT = int(os.environ.get("PORT", 5432))
     CERT_PATH = os.environ.get("CERT_PATH")
-    OPENWEATHERMAP_ID = os.environ.get('OPENWEATHERMAP_ID', None)
-    DB_URI = os.environ.get('DATABASE_URL')
+    OPENWEATHERMAP_ID = os.environ.get("OPENWEATHERMAP_ID", None)
+    DB_URI = os.environ.get("DATABASE_URL")
     LOAD = os.environ.get("LOAD", "").split()
     NO_LOAD = os.environ.get("NO_LOAD", "translation").split()
-    DEL_CMDS = bool(os.environ.get('DEL_CMDS', False))
-    STRICT_ANTISPAM = bool(os.environ.get('STRICT_ANTISPAM', True))
-    DEEPFRY_TOKEN = os.environ.get('DEEPFRY_TOKEN', "")
+    DEL_CMDS = bool(os.environ.get("DEL_CMDS", False))
+    STRICT_ANTISPAM = bool(os.environ.get("STRICT_ANTISPAM", True))
+    DEEPFRY_TOKEN = os.environ.get("DEEPFRY_TOKEN", "")
     BOTLOG_CHATID = os.environ.get("MESSAGE_DUMP")
     YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)
     TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
     OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", None)
-    WORKERS = int(os.environ.get('WORKERS', 4))
-    WOLFRAM_ID = os.environ.get('WOLFRAM_ID', None)
-    BAN_STICKER = os.environ.get('BAN_STICKER', 'CAACAgUAAxkBAALtC17p4EIAATVENsrWdMiTEinfiUXp3wACDwADTB0uPDaYvTB8iR7eGgQ')
-    ALLOW_EXCL = os.environ.get('ALLOW_EXCL', True)
+    WORKERS = int(os.environ.get("WORKERS", 4))
+    WOLFRAM_ID = os.environ.get("WOLFRAM_ID", None)
+    BAN_STICKER = os.environ.get(
+        "BAN_STICKER",
+        "CAACAgUAAxkBAALtC17p4EIAATVENsrWdMiTEinfiUXp3wACDwADTB0uPDaYvTB8iR7eGgQ",
+    )
+    ALLOW_EXCL = os.environ.get("ALLOW_EXCL", True)
     SUDO_USERS.add(OWNER_ID)
-    GBAN_LOGS = os.environ.get('GBAN_LOGS', None)
-    LYDIA_API_KEY = os.environ.get('LYDIA_API_KEY', None)
+    GBAN_LOGS = os.environ.get("GBAN_LOGS", None)
+    LYDIA_API_KEY = os.environ.get("LYDIA_API_KEY", None)
     tbot = TelegramClient("alexa", API_KEY, API_HASH)
     updater = tg.Updater(TOKEN, workers=WORKERS)
     dispatcher = updater.dispatcher
     SUDO_USERS = list(SUDO_USERS)
-    REM_BG_API_KEY = os.environ.get('REM_BG_API_KEY', None)
+    REM_BG_API_KEY = os.environ.get("REM_BG_API_KEY", None)
     WHITELIST_USERS = list(WHITELIST_USERS)
-    IBM_WATSON_CRED_URL = os.environ.get('IBM_WATSON_CRED_URL', None)
-    IBM_WATSON_CRED_PASSWORD = os.environ.get('IBM_WATSON_CRED_PASSWORD', None)
+    IBM_WATSON_CRED_URL = os.environ.get("IBM_WATSON_CRED_URL", None)
+    IBM_WATSON_CRED_PASSWORD = os.environ.get("IBM_WATSON_CRED_PASSWORD", None)
     SUPPORT_USERS = list(SUPPORT_USERS)
-    WALL_API = os.environ.get('WALL_API', None)
+    WALL_API = os.environ.get("WALL_API", None)
     CHROME_DRIVER = os.environ.get("CHROME_DRIVER", None)
     GOOGLE_CHROME_BIN = os.environ.get("GOOGLE_CHROME_BIN", None)
-    CASH_API_KEY = os.environ.get('CASH_API_KEY', None)
-    TIME_API_KEY = os.environ.get('TIME_API_KEY', None)
+    CASH_API_KEY = os.environ.get("CASH_API_KEY", None)
+    TIME_API_KEY = os.environ.get("TIME_API_KEY", None)
     # Load at end to ensure all prev variables have been set
-    from alexa.modules.helper_funcs.handlers import CustomCommandHandler, CustomRegexHandler, GbanLockHandler
+    from alexa.modules.helper_funcs.handlers import (CustomCommandHandler,
+                                                     CustomRegexHandler,
+                                                     GbanLockHandler)
+
     # make sure the regex handler can take extra kwargs
     tg.RegexHandler = CustomRegexHandler
     if ALLOW_EXCL:
-       tg.CommandHandler = CustomCommandHandler
+        tg.CommandHandler = CustomCommandHandler
     tg.CommandHandler = GbanLockHandler
-    STRING_SESSION = os.environ.get("STRING_SESSION", None)   
+    STRING_SESSION = os.environ.get("STRING_SESSION", None)
     HEROKU_APIKEY = os.environ.get("HEROKU_APIKEY", None)
     HEROKU_APPNAME = os.environ.get("HEROKU_APPNAME", None)
     UPSTREAM_REPO_URL = os.environ.get(
-    "UPSTREAM_REPO_URL",
-    "https://github.com/Ayush1311/RealAlexaBot.git")
-    TEMPORARY_DATA = os.environ.get('TEMPORARY_DATA', None)
+        "UPSTREAM_REPO_URL", "https://github.com/Ayush1311/RealAlexaBot.git")
+    TEMPORARY_DATA = os.environ.get("TEMPORARY_DATA", None)
     SPAMMERS = list(SPAMMERS)
     try:
-      from alexa.antispam import antispam_restrict_user, antispam_cek_user, detect_user
-      antispam_module = True
+        from alexa.antispam import (antispam_cek_user, antispam_restrict_user,
+                                    detect_user)
+
+        antispam_module = True
     except ModuleNotFoundError:
-      antispam_module = False
+        antispam_module = False
 
     def spamfilters(_text, user_id, _chat_id):
-     if int(user_id) in SPAMMERS:
-        print("This user is a spammer!")
-        return True
-     else:
-        return False
+        if int(user_id) in SPAMMERS:
+            print("This user is a spammer!")
+            return True
+        else:
+            return False
 
     # Bot Logs setup:
-    CONSOLE_LOGGER_VERBOSE = sb(os.environ.get("CONSOLE_LOGGER_VERBOSE", "True"))
+    CONSOLE_LOGGER_VERBOSE = sb(
+        os.environ.get("CONSOLE_LOGGER_VERBOSE", "True"))
 
     if CONSOLE_LOGGER_VERBOSE:
-      basicConfig(
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-        level=DEBUG,
-      )
+        basicConfig(
+            format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+            level=DEBUG,
+        )
     else:
-      basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-                level=INFO)
+        basicConfig(
+            format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+            level=INFO)
     LOGS = getLogger(__name__)
-    BOTLOG = (os.environ.get("BOTLOG") == 'True')
-   
+    BOTLOG = os.environ.get("BOTLOG") == "True"
+
     if STRING_SESSION:
-      ubot = TelegramClient(StringSession(STRING_SESSION), API_KEY, API_HASH)
+        ubot = TelegramClient(StringSession(STRING_SESSION), API_KEY, API_HASH)
     else:
-      quit(1)
+        quit(1)
+
     async def check_botlog_chatid():
-      if not BOTLOG:
-        return
-      entity = await ubot.get_entity(BOTLOG_CHATID)
-      if entity.default_banned_rights.send_messages:
-        LOGS.error(
-            "Your account doesn't have rights to send messages to BOTLOG_CHATID "
-            "group. Check if you typed the Chat ID correctly. Halting!")
-        quit(1)
+        if not BOTLOG:
+            return
+        entity = await ubot.get_entity(BOTLOG_CHATID)
+        if entity.default_banned_rights.send_messages:
+            LOGS.error(
+                "Your account doesn't have rights to send messages to BOTLOG_CHATID "
+                "group. Check if you typed the Chat ID correctly. Halting!")
+            quit(1)
+
     with ubot:
-     try:
-        ubot.loop.run_until_complete(check_botlog_chatid())
-     except:
-        LOGS.error("BOTLOG_CHATID environment variable isn't a "
-                   "valid entity. Check your config.env file. Halting!")
-        quit(1)
-    INVALID_PH = '\nERROR: The phone no. entered is incorrect'
+        try:
+            ubot.loop.run_until_complete(check_botlog_chatid())
+        except:
+            LOGS.error("BOTLOG_CHATID environment variable isn't a "
+                       "valid entity. Check your config.env file. Halting!")
+            quit(1)
+    INVALID_PH = "\nERROR: The phone no. entered is incorrect"
     try:
-       ubot.start()
+        ubot.start()
     except PhoneNumberInvalidError:
-       print(INVALID_PH)
-       exit(1)
+        print(INVALID_PH)
+        exit(1)
 else:
-   quit(1)
+    quit(1)
