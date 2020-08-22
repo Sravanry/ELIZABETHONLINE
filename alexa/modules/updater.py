@@ -15,7 +15,7 @@ import sys
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
 
-from alexa import CMD_HELP, bot, HEROKU_APIKEY, HEROKU_APPNAME, UPSTREAM_REPO_URL
+from alexa import HEROKU_APIKEY, HEROKU_APPNAME, UPSTREAM_REPO_URL
 from alexa.events import register
 
 requirements_path = path.join(
