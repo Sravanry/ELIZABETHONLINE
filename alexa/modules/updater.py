@@ -1,21 +1,25 @@
 # Copyright (C) 2019 The Raphielscape Company LLC.
 #
-# Licensed under the Raphielscape Public License, Version 1.d (the "License");
+# Licensed under the Raphielscape Public License, Version 1.c (the "License");
 # you may not use this file except in compliance with the License.
 #
 """
-This module updates the userbot based on Upstream revision
+This module updates the alexa based on Upstream revision
 """
 
+from os import remove, execle, path, makedirs, getenv, environ
+from shutil import rmtree
+import asyncio
 import sys
-from os import execl, remove, path
-import heroku3
 
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
 
-from alexa import HEROKU_APIKEY, HEROKU_APPNAME, STRING_SESSION, OWNER_ID
+from alexa import CMD_HELP, bot, HEROKU_APIKEY, HEROKU_APPNAME, UPSTREAM_REPO_URL
 from alexa.events import register
+
+requirements_path = path.join(
+    path.dirname(path.dirname(path.dirname(__file__))), 'requirements.txt')
 
 
 async def gen_chlog(repo, diff):
@@ -26,11 +30,17 @@ async def gen_chlog(repo, diff):
     return ch_log
 
 
-async def is_off_br(br):
-    off_br = ['stable', 'master']
-    if br in off_br:
-        return 1
-    return
+async def update_requirements():
+    reqs = str(requirements_path)
+    try:
+        process = await asyncio.create_subprocess_shell(
+            ' '.join([sys.executable, "-m", "pip", "install", "-r", reqs]),
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE)
+        await process.communicate()
+        return process.returncode
+    except Exception as e:
+        return repr(e)
 
 
 @register(pattern="^/update(?: |$)(.*)")
@@ -38,29 +48,44 @@ async def upstream(ups):
     "For .update command, check if the bot is up to date, update if specified"
     lol = await ups.reply("`Checking for updates, please wait....`")
     conf = ups.pattern_match.group(1)
-    off_repo = 'https://github.com/Ayush1311/RealAlexaBot.git'
+    off_repo = UPSTREAM_REPO_URL
+    force_update = False
 
     try:
         txt = "`Oops.. Updater cannot continue due to "
-        txt += "some problems.`\n\n**LOGTRACE:**\n"
+        txt += "some problems occured`\n\n**LOGTRACE:**\n"
         repo = Repo()
     except NoSuchPathError as error:
         await lol.edit(f'{txt}\n`directory {error} is not found`')
-        return
-    except InvalidGitRepositoryError as error:
-        await lol.edit(f'{txt}\n`directory {error} does \
-                        not seems to be a git repository`')
+        repo.__del__()
         return
     except GitCommandError as error:
         await lol.edit(f'{txt}\n`Early failure! {error}`')
+        repo.__del__()
         return
+    except InvalidGitRepositoryError as error:
+        if conf != "now":
+            await lol.edit(
+                f"`Unfortunately, the directory {error} does not seem to be a git repository.\
+            \nBut we can fix that by force updating the alexa using .update now.`"
+            )
+            return
+        repo = Repo.init()
+        origin = repo.create_remote('upstream', off_repo)
+        origin.fetch()
+        force_update = True
+        repo.create_head('stable', origin.refs.stable)
+        repo.heads.stable.set_tracking_branch(origin.refs.stable)
+        repo.heads.stable.checkout(True)
 
     ac_br = repo.active_branch.name
-    if not await is_off_br(ac_br):
+    if ac_br != 'stable':
         await lol.edit(
             f'**[UPDATER]:**` Looks like you are using your own custom branch ({ac_br}). '
-            'In that case, Updater is unable to perform a successful update. '
-            'Please checkout to any official branch.`')
+            'in that case, Updater is unable to identify '
+            'which branch is to be merged. '
+            'please checkout to any official branch`')
+        repo.__del__()
         return
 
     try:
@@ -70,13 +95,16 @@ async def upstream(ups):
 
     ups_rem = repo.remote('upstream')
     ups_rem.fetch(ac_br)
+
     changelog = await gen_chlog(repo, f'HEAD..upstream/{ac_br}')
 
-    if not changelog:
-        await lol.edit(f'\n`Your BOT is `**up-to-date**` with `**{ac_br}**\n')
+    if not changelog and not force_update:
+        await lol.edit(
+            f'\n`Your BOT is`  **up-to-date**  `with`  **{ac_br}**\n')
+        repo.__del__()
         return
 
-    if conf != "now":
+    if conf != "now" and not force_update:
         changelog_str = f'**New UPDATE available for [{ac_br}]:\n\nCHANGELOG:**\n`{changelog}`'
         if len(changelog_str) > 4096:
             await lol.edit("`Changelog is too big, view the file to see it.`")
@@ -91,67 +119,66 @@ async def upstream(ups):
             remove("output.txt")
         else:
             await lol.edit(changelog_str)
-        await ups.respond("Use the `/update now` command to update")
+        await ups.respond('`do \".update now\" to update`')
         return
 
-    await lol.edit('`New update found, updating...`')
-
-    ups_rem.fetch(ac_br)
-    repo.git.reset('--hard', 'FETCH_HEAD')
-
-    if HEROKU_APIKEY != None:
-        # Heroku configuration, which can rebuild the Docker image with newer changes
-        heroku = heroku3.from_key(HEROKU_APIKEY)
-        if HEROKU_APPNAME != None:
-            try:
-                heroku_app = heroku.apps()[HEROKU_APPNAME]
-            except KeyError:
-                await lol.edit(
-                    "```Error: HEROKU_APPNAME config is invalid! Make sure an app with that "
-                    "name exists and your HEROKU_APIKEY config is correct.```")
-                return
-        else:
-            await lol.edit(
-                "```Error: HEROKU_APPNAME config is not set! Make sure to set your "
-                "Heroku Application name in the config.```")
-            return
-
+    if force_update:
         await lol.edit(
-            "`Heroku configuration found! Updater will try to update and restart Alexa"
-            "automatically if succeeded. Try checking if Alexa is alive by using the"
-            "\".alive\" command after a few minutes.`")
-
-        # Set git config for commiting session and config
-        repo.config_writer().set_value("user", "name",
-                                       "Alexa Updater").release()
-        repo.config_writer().set_value("user", "email",
-                                       "<>").release()  # No Email
-
- 
-        heroku_remote_url = heroku_app.git_url.replace(
-            "https://", f"https://api:{HEROKU_APIKEY}@")
-
-        remote = None
-        if 'heroku' in repo.remotes:
-            remote = repo.remote('heroku')
-            remote.set_url(heroku_remote_url)
-        else:
-            remote = repo.create_remote('heroku', heroku_remote_url)
-
-        try:
-            remote.push(refspec="HEAD:refs/heads/master", force=True)
-        except GitCommandError as e:
-            await lol.edit(f'{txt}\n`Early failure! {e}`')
-            return
+            '`Force-Syncing to latest stable alexa code, please wait...`')
     else:
-        # Heroku configs not set, just restart the bot
-        await lol.edit(
-            '`Successfully Updated!\n'
-            'Alexa is restarting... Wait for a few seconds, then '
-            'check if Alexa is alive by using the "/start" command.`')
-
-        await ups.client.disconnect()
+        await lol.edit('`Updating alexa, please wait....`')
+    # We're in a Heroku Dyno, handle it's memez.
+    if HEROKU_APIKEY is not None:
+        import heroku3
+        heroku = heroku3.from_key(HEROKU_APIKEY)
+        heroku_app = None
+        heroku_applications = heroku.apps()
+        if not HEROKU_APPNAME:
+            await lol.edit(
+                '`[HEROKU MEMEZ] Please set up the HEROKU_APPNAME variable to be able to update alexa.`'
+            )
+            repo.__del__()
+            return
+        for app in heroku_applications:
+            if app.name == HEROKU_APPNAME:
+                heroku_app = app
+                break
+        if heroku_app is None:
+            await lol.edit(
+                f'{txt}\n`Invalid Heroku credentials for updating alexa dyno.`'
+            )
+            repo.__del__()
+            return
+        await lol.edit('`[HEROKU MEMEZ]\
+                        \nalexa dyno build in progress, please wait for it to complete.`'
+                       )
+        ups_rem.fetch(ac_br)
+        repo.git.reset("--hard", "FETCH_HEAD")
+        heroku_git_url = heroku_app.git_url.replace(
+            "https://", "https://api:" + HEROKU_APIKEY + "@")
+        if "heroku" in repo.remotes:
+            remote = repo.remote("heroku")
+            remote.set_url(heroku_git_url)
+        else:
+            remote = repo.create_remote("heroku", heroku_git_url)
+        try:
+            remote.push(refspec="HEAD:refs/heads/stable", force=True)
+        except GitCommandError as error:
+            await lol.edit(f'{txt}\n`Here is the error log:\n{error}`')
+            repo.__del__()
+            return
+        await lol.edit('`Successfully Updated!\n'
+                       'Restarting, please wait...`')
+    else:
+        # Classic Updater, pretty straightforward.
+        try:
+            ups_rem.pull(ac_br)
+        except GitCommandError:
+            repo.git.reset("--hard", "FETCH_HEAD")
+        reqs_upgrade = await update_requirements()
+        await lol.edit('`Successfully Updated!\n'
+                       'Bot is restarting... Wait for a second!`')
         # Spin a new instance of bot
-        execl(sys.executable, sys.executable, *sys.argv)
-        # Shut the existing one down
-        exit()
+        args = [sys.executable, "-m", "alexa"]
+        execle(sys.executable, *args, environ)
+        return
