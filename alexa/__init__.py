@@ -19,8 +19,8 @@ from telethon.sessions import StringSession
 
 # enable logging
 logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
-)
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    level=logging.INFO)
 
 LOGGER = logging.getLogger(__name__)
 ENV = bool(os.environ.get("ENV", True))
@@ -33,23 +33,28 @@ if ENV:
     try:
         SPAMMERS = {int(x) for x in os.environ.get("SPAMMERS", "").split()}
     except ValueError:
-        raise Exception("Your spammers users list does not contain valid integers.")
+        raise Exception(
+            "Your spammers users list does not contain valid integers.")
     MESSAGE_DUMP = os.environ.get("MESSAGE_DUMP", None)
     OWNER_USERNAME = os.environ.get("OWNER_USERNAME", None)
     try:
-        SUDO_USERS = set(int(x) for x in os.environ.get("SUDO_USERS", "").split())
+        SUDO_USERS = set(
+            int(x) for x in os.environ.get("SUDO_USERS", "").split())
     except ValueError:
-        raise Exception("Your sudo users list does not contain valid integers.")
+        raise Exception(
+            "Your sudo users list does not contain valid integers.")
     try:
-        SUPPORT_USERS = set(int(x) for x in os.environ.get("SUPPORT_USERS", "").split())
+        SUPPORT_USERS = set(
+            int(x) for x in os.environ.get("SUPPORT_USERS", "").split())
     except ValueError:
-        raise Exception("Your support users list does not contain valid integers.")
+        raise Exception(
+            "Your support users list does not contain valid integers.")
     try:
         WHITELIST_USERS = set(
-            int(x) for x in os.environ.get("WHITELIST_USERS", "").split()
-        )
+            int(x) for x in os.environ.get("WHITELIST_USERS", "").split())
     except ValueError:
-        raise Exception("Your whitelisted users list does not contain valid integers.")
+        raise Exception(
+            "Your whitelisted users list does not contain valid integers.")
     WEBHOOK = bool(os.environ.get("WEBHOOK", False))
     URL = os.environ.get("URL", "")  # Does not contain token
     API_KEY = os.environ.get("API_KEY", None)
@@ -105,8 +110,7 @@ if ENV:
     HEROKU_APIKEY = os.environ.get("HEROKU_APIKEY", None)
     HEROKU_APPNAME = os.environ.get("HEROKU_APPNAME", None)
     UPSTREAM_REPO_URL = os.environ.get(
-        "UPSTREAM_REPO_URL", "https://github.com/Ayush1311/RealAlexaBot.git"
-    )
+        "UPSTREAM_REPO_URL", "https://github.com/Ayush1311/RealAlexaBot.git")
     TEMPORARY_DATA = os.environ.get("TEMPORARY_DATA", None)
     SPAMMERS = list(SPAMMERS)
     try:
@@ -125,16 +129,18 @@ if ENV:
             return False
 
     # Bot Logs setup:
-    CONSOLE_LOGGER_VERBOSE = sb(os.environ.get("CONSOLE_LOGGER_VERBOSE", "True"))
+    CONSOLE_LOGGER_VERBOSE = sb(
+        os.environ.get("CONSOLE_LOGGER_VERBOSE", "True"))
 
     if CONSOLE_LOGGER_VERBOSE:
         basicConfig(
-            format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=DEBUG,
+            format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+            level=DEBUG,
         )
     else:
         basicConfig(
-            format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=INFO
-        )
+            format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+            level=INFO)
     LOGS = getLogger(__name__)
     BOTLOG = os.environ.get("BOTLOG") == "True"
 
@@ -150,18 +156,15 @@ if ENV:
         if entity.default_banned_rights.send_messages:
             LOGS.error(
                 "Your account doesn't have rights to send messages to BOTLOG_CHATID "
-                "group. Check if you typed the Chat ID correctly. Halting!"
-            )
+                "group. Check if you typed the Chat ID correctly. Halting!")
             quit(1)
 
     with ubot:
         try:
             ubot.loop.run_until_complete(check_botlog_chatid())
         except:
-            LOGS.error(
-                "BOTLOG_CHATID environment variable isn't a "
-                "valid entity. Check your config.env file. Halting!"
-            )
+            LOGS.error("BOTLOG_CHATID environment variable isn't a "
+                       "valid entity. Check your config.env file. Halting!")
             quit(1)
     INVALID_PH = "\nERROR: The phone no. entered is incorrect"
     try:

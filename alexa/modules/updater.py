@@ -27,8 +27,7 @@ from alexa import UPSTREAM_REPO_URL
 from alexa.events import register
 
 requirements_path = path.join(
-    path.dirname(path.dirname(path.dirname(__file__))), "requirements.txt"
-)
+    path.dirname(path.dirname(path.dirname(__file__))), "requirements.txt")
 
 
 async def gen_chlog(repo, diff):
@@ -96,8 +95,7 @@ async def upstream(ups):
             f"**[UPDATER]:**` Looks like you are using your own custom branch ({ac_br}). "
             "in that case, Updater is unable to identify "
             "which branch is to be merged. "
-            "please checkout to any official branch`"
-        )
+            "please checkout to any official branch`")
         repo.__del__()
         return
 
@@ -112,7 +110,8 @@ async def upstream(ups):
     changelog = await gen_chlog(repo, f"HEAD..upstream/{ac_br}")
 
     if not changelog and not force_update:
-        await lol.edit(f"\n`Your BOT is`  **up-to-date**  `with`  **{ac_br}**\n")
+        await lol.edit(
+            f"\n`Your BOT is`  **up-to-date**  `with`  **{ac_br}**\n")
         repo.__del__()
         return
 
@@ -126,7 +125,9 @@ async def upstream(ups):
             file.write(changelog_str)
             file.close()
             await ups.client.send_file(
-                ups.chat_id, "output.txt", reply_to=ups.id,
+                ups.chat_id,
+                "output.txt",
+                reply_to=ups.id,
             )
             remove("output.txt")
         else:
@@ -135,7 +136,8 @@ async def upstream(ups):
         return
 
     if force_update:
-        await lol.edit("`Force-Syncing to latest stable alexa code, please wait...`")
+        await lol.edit(
+            "`Force-Syncing to latest stable alexa code, please wait...`")
     else:
         await lol.edit("`Updating alexa, please wait....`")
     # We're in a Heroku Dyno, handle it's memez.
@@ -161,15 +163,13 @@ async def upstream(ups):
             )
             repo.__del__()
             return
-        await lol.edit(
-            "`[HEROKU MEMEZ]\
+        await lol.edit("`[HEROKU MEMEZ]\
                         \nalexa dyno build in progress, please wait for it to complete.`"
-        )
+                       )
         ups_rem.fetch(ac_br)
         repo.git.reset("--hard", "FETCH_HEAD")
         heroku_git_url = heroku_app.git_url.replace(
-            "https://", "https://api:" + HEROKU_APIKEY + "@"
-        )
+            "https://", "https://api:" + HEROKU_APIKEY + "@")
         if "heroku" in repo.remotes:
             remote = repo.remote("heroku")
             remote.set_url(heroku_git_url)
@@ -181,7 +181,8 @@ async def upstream(ups):
             await lol.edit(f"{txt}\n`Here is the error log:\n{error}`")
             repo.__del__()
             return
-        await lol.edit("`Successfully Updated!\n" "Restarting, please wait...`")
+        await lol.edit("`Successfully Updated!\n"
+                       "Restarting, please wait...`")
     else:
         # Classic Updater, pretty straightforward.
         try:
@@ -189,9 +190,8 @@ async def upstream(ups):
         except GitCommandError:
             repo.git.reset("--hard", "FETCH_HEAD")
         reqs_upgrade = await update_requirements()
-        await lol.edit(
-            "`Successfully Updated!\n" "Bot is restarting... Wait for a second!`"
-        )
+        await lol.edit("`Successfully Updated!\n"
+                       "Bot is restarting... Wait for a second!`")
         # Spin a new instance of bot
         args = [sys.executable, "-m", "alexa"]
         execle(sys.executable, *args, environ)
