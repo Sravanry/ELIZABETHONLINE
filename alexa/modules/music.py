@@ -51,10 +51,10 @@ async def _(event):
     await event.client.send_file(
                 event.chat_id,
                 loa,
-                force_document=True,
+                force_document=False,
                 allow_cache=False,
+                supports_streaming=True,
                 caption=cmd,
                 reply_to=reply_to_id
             )
     subprocess.run("rm -rf *.mp3", shell=True)
-
