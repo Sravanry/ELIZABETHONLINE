@@ -32,6 +32,14 @@
 			"value": "",
 			"required": true
 		},
+                "HEROKU_APIKEY": {
+                        "description": "Get from 'https://dashboard.heroku.com/account'. It's needed for bot updates",
+                        "required": false
+                },
+                "HEROKU_APPNAME": {
+                        "description": "Add the Heroku app name here. It's needed for bot updates",
+                        "required": false
+                },
 		"OPENWEATHERMAP_ID": {
 			"description": "Get your own APPID from https://api.openweathermap.org/data/2.5/weather",
 			"required": false
