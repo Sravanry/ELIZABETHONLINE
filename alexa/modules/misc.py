@@ -2714,39 +2714,39 @@ If you are still messed up send `/helpcamscanner` in pm for the tutorial !
  - /gps: <location> Get gps location.
  - /imdb - Get full info about a movie with imdb.com
  - /img <text>: Search Google for images and returns them\nFor greater no. of results specify lim, For eg: `/img hello lim=10`
- - /img2text <lang>: Type in reply to a image to extract the text from it 	
- - /img2textlang: List all the available languages	
- - /phone <number in international format>: Check if the number really exists and returns information about it.If the number is fake then it will return null-type response 
+ - /img2text <lang>: Type in reply to a image to extract the text from it
+ - /img2textlang: List all the available languages
+ - /phone <number in international format>: Check if the number really exists and returns information about it.If the number is fake then it will return null-type response
 Example: `/phone +9162XX93X805`, `/phone +1916X978XX1`
  - /news: Returns today's Indian Headlines (ONLY WORKS IN PM)
  - /getqr: Get the QR Code content from the replied QR Code
  - /makeqr <content>: Make a QR Code from the given message (text, link, etc...)
  - /reverse: Does a reverse image search of the media which it was replied to.
- - /rmbg: Type in reply to a media to remove it's background 
+ - /rmbg: Type in reply to a media to remove it's background
  - /stt: Type in reply to a voice message(english only) to extract text from it.
  - /tts <lang | text>: Returns a speech note of the text provided
  - /torrent <text>: Search for torrent links
 If you are still messed up send `/helptorrent` in pm for the tutorial !
- - /wall <topic>: Searches best wallpaper on the given topic and returns them 
+ - /wall <topic>: Searches best wallpaper on the given topic and returns them
  - /weather <city>: Get weather info in a particular place
  - /wttr <city>: Advanced weather module, usage same as /weather
- - /wttr moon: Get the current status of moon 
+ - /wttr moon: Get the current status of moon
  - /wiki <text>: Returns search from wikipedia for the input text
  - /yt <text>: perform a youtube search
  - /ytaudio <link> or /ytvideo <link>: Downlods a video or audio from a youtube video to the bots local server
  - /zip: reply to a telegram file to compressing in .zip format
  - /unzip: reply to a telegram file to decompress it from the .zip format
  - /git <username>: Returns info about a GitHub user or organization.
- - /repo <username>: Return the GitHub user or organization repository list 
- - /magisk: Get latest magisk updates 
- - /app <appname>: Search for an app in playstore 
+ - /repo <username>: Return the GitHub user or organization repository list
+ - /magisk: Get latest magisk updates
+ - /app <appname>: Search for an app in playstore
  - /magisk: Get the latest Magisk releases
  - /device <codename>: Get info about an Android device
  - /codename <brand> <device>: Search for Android device codename
  - /specs <brand> <device>: Get device specifications info
  - /twrp <codename>: Get the latest TWRP download for an Android device
  - /song <songname artist(optional)>: uploads the song in it's best quality available
- - /lyrics <songname artist (optional)>: get the lyrics of a song 
+ - /lyrics <songname artist (optional)>: get the lyrics of a song
  - /barcode <text>: makes a barcode out of the text, crop the barcode if you don't want to reveal the text
 """
 
