@@ -5,4 +5,4 @@
 **A modular telegram Python bot running on python3 with an sqlalchemy database.**
 
 Deploy Alexa to Heroku:
-<p align="left"><a href="https://heroku.com/deploy"> <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku" /></a></p>
+<p align="left"><a href="https://heroku.com/deploy?template=https://github.com/Ayush1311/RealAlexaBot/tree/stable"> <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku" /></a></p>
