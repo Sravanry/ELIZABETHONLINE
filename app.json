@@ -33,7 +33,7 @@
 			"value": "",
 			"required": true
 		},
-		"OPEN_WEATHER_MAP_APPID": {
+		"OPENWEATHERMAP_ID": {
 			"description": "Get your own APPID from https://api.openweathermap.org/data/2.5/weather",
 			"required": false
 		},
@@ -91,6 +91,22 @@
 			"value": "",
 			"required": true
 		},
+                "TIME_API_KEY": {
+                        "description": "Required for timezone information",
+                        "value": "-xyz"
+                },
+                "CASH_API_KEY": {
+                       "description": "Required for currency converter",
+                       "value": "-xyz"
+                },
+                "WOLFRAM_ID": {
+                       "description": "Required for Assistant module, get your own key from wolframalpha.com",
+                       "value": "-xyz"
+                },
+                "WALL_API": {
+                       "description": "Get one from https://wall.alphacoders.com/api.php",
+                       "value": "-xyz
+                },
 		"STRICT_GBAN": {
 			"description": "Enforce gbans across new groups as well as old groups. When a gbanned user talks, he will be banned",
 			"value": "True"
