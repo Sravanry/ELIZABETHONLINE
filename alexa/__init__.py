@@ -111,11 +111,11 @@ if ENV:
     HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", None)
     HEROKU_MEMEZ = os.environ.get("HEROKU_MEMEZ", None)
     HEROKU_GIT_URL = os.environ.get("HEROKU_GIT_URL", None)
-    GIT_REPO_NAME = os.environ.get("GIT_REPO_NAME", "RealAlexaBot")
+    GIT_REPO_NAME = os.environ.get("GIT_REPO_NAME", "ELIZABETHONLINE")
     HEROKU_LINK = os.environ.get("HEROKU_GIT_URL")
     REPO_LINK = os.environ.get("UPSTREAM_REPO_URL")
     UPSTREAM_REPO_URL = os.environ.get(
-        "UPSTREAM_REPO_URL", "https://github.com/Ayush1311/RealAlexaBot.git")
+        "UPSTREAM_REPO_URL", "https://github.com/princeonline/elizabethonline.git")
     TEMPORARY_DATA = os.environ.get("TEMPORARY_DATA", None)
     SPAMMERS = list(SPAMMERS)
     try:
