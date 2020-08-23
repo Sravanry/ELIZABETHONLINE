@@ -1,8 +1,12 @@
 __help__ = """
- - /addblacklist <trigger> : blacklists the trigger it will get removed everytime someone types it
- - /unblacklist <trigger> | /rmblacklist <trigger> : stop blacklisting a certain blacklist trigger
- - /blacklist: list all active blacklist filters
- - /addblacklist "the admins suck": This will remove the text everytime someone types it
- - /addblacklist "bit.ly/*": This will remove the link everytime someone sends it matching bit.ly
-""" 
+*Filters*
+ - /filter <word> <message>: Every time someone says "word", the bot will reply with "message"
+ - /stop <word>: stop that filter.
+*Note*
+ - /save <word> <sentence>: Save that sentence to the note called "word"
+ - /get <word> | #<word> : get the note registered to that word
+ - /clear <word>: delete the note called "word"
+ - /notes | /saved: List all notes in the chat
+"""
+
 __mod_name__ = "Filters 📒"
