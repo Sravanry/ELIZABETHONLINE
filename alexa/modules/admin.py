@@ -1027,8 +1027,6 @@ __help__ = """
  - /cleanwelcome <on/off/yes/no>: clean welcome message 
  - /cleanservice <on/off/yes/no>: clean all service messages
  - /welcomesecurity <off/soft/hard>: check is the user joined is bot or not by prompting them to click on a button
-
-⬆️ _READ FROM TOP_ ⬆️
 """
 
 __mod_name__ = "Admin 💡"
