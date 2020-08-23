@@ -213,7 +213,7 @@ If you enjoying using me and/or would like to help me survive in the wild, hit /
 """,
 
     "send-help": """
-[#include <std/disclaimer.h>](https://telegra.ph/Alexa---A-Telegram-Bot-Project-08-20)
+😡
 """,
 
 #Misc
