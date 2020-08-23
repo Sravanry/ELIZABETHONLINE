@@ -8,16 +8,16 @@ from telegram.error import BadRequest
 from telegram.ext import MessageHandler, Filters, CommandHandler, run_async, CallbackQueryHandler
 from telegram.utils.helpers import mention_markdown, mention_html, escape_markdown
 
-import haruka.modules.sql.welcome_sql as sql
-from haruka import dispatcher, OWNER_ID, LOGGER, MESSAGE_DUMP
-from haruka.modules.helper_funcs.chat_status import user_admin, is_user_ban_protected, user_can_change
-from haruka.modules.helper_funcs.misc import build_keyboard, revert_buttons
-from haruka.modules.helper_funcs.msg_types import get_welcome_type
-from haruka.modules.helper_funcs.string_handling import markdown_parser, \
+import alexa.modules.sql.welcome_sql as sql
+from alexa import dispatcher, OWNER_ID, LOGGER, MESSAGE_DUMP
+from alexa.modules.helper_funcs.chat_status import user_admin, is_user_ban_protected, user_can_change
+from alexa.modules.helper_funcs.misc import build_keyboard, revert_buttons
+from alexa.modules.helper_funcs.msg_types import get_welcome_type
+from alexa.modules.helper_funcs.string_handling import markdown_parser, \
     escape_invalid_curly_brackets
-from haruka.modules.log_channel import loggable
+from alexa.modules.log_channel import loggable
 
-from haruka.modules.feds import welcome_fed
+from alexa.modules.feds import welcome_fed
 
 
 VALID_WELCOME_FORMATTERS = ['first', 'last', 'fullname', 'username', 'id', 'count', 'chatname', 'mention']
