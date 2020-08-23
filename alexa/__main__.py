@@ -18,7 +18,7 @@ from alexa.modules.connection import connected
 from alexa.modules.helper_funcs.chat_status import user_admin
 
 PM_START = """
-[#include <std/disclaimer.h>](https://telegra.ph/Alexa---A-Telegram-Bot-Project-08-20)
+🤷‍♀️
 """
 
 IMPORTED = {}
@@ -129,12 +129,8 @@ def send_start(bot, update):
 
     first_name = update.effective_user.first_name 
     text = PM_START
-    
-    keyboard = [[InlineKeyboardButton(text=tld(chat.id, "Add me to your group ♥️"), url="t.me/RealAlexaBot?startgroup=true")]]
-
-    keyboard += [[InlineKeyboardButton(text=tld(chat.id, "Join our support chat 🌍"), url="https://t.me/RealAlexaBotSupport")]]
-    keyboard += [[InlineKeyboardButton(text="My Commands ⚙️", callback_data="help_back")]]
-    keyboard += [[InlineKeyboardButton(text="Check out my website 🌐", url="http://realalexabot.unaux.com/home")]]
+   
+    keyboard += [[InlineKeyboardButton(text=">>>>>>>>HELP BUTTON<<<<<<<<", callback_data="help_back")]]
     
     
 
