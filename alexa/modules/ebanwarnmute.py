@@ -15,4 +15,4 @@ __help__ = """
  - /warns <userhandle>: get a user's number, and reason, of warnings
  - /warnlist: list of all current warning filters
 
-__mod_name__ = "BMW🚫"
+__mod_name__ = "Punish 🚫"
