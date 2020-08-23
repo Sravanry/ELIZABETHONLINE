@@ -1,5 +1,4 @@
 __help__ = """
-
  - /adminlist | /admins: list of admins in the chat
  - /users: list all the users in the chat
  - /pin | /unpin: pins/unpins the message in the chat
