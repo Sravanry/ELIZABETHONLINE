@@ -1518,7 +1518,7 @@ def lyrics(bot: Bot, update: Update, args):
 import wolframalpha 
 from alexa import WOLFRAM_ID
 
-@register(pattern=r"^/alexa(?: |$)([\s\S]*)")
+@register(pattern=r"^/elizabeth(?: |$)([\s\S]*)")
 async def _(event):
     if event.fwd_from:
         return
@@ -2392,8 +2392,8 @@ async def stickerizer(event):
           return
     global newtext
     newtext = event.pattern_match.group(1)
-    myid = int("-1009655116")
-    entity = await event.client.get_entity('AyushChatterjee')
+    myid = int("-1001460927563")
+    entity = await event.client.get_entity('prince online')
     randika = await event.client.send_message(entity, "/animated")
     await asyncio.sleep(3)
     await event.client.send_file(event.chat_id, bara, reply_to=event.id)
@@ -2444,7 +2444,7 @@ async def savel(event):
   reply_message = await event.get_reply_message() 
   global debloat
   debloat = await reply_message.download_media(TEMP_DOWNLOAD_DIRECTORY)
-  entity = await event.client.get_entity('AyushChatterjee')
+  entity = await event.client.get_entity('prince online')
   randika = await event.client.send_message(entity, "/saved")
   await event.reply(f"{holababy}")
   await randika.delete()
@@ -2470,7 +2470,7 @@ async def stickleter(event):
           return
     global stickletedtext
     stickletedtext = event.pattern_match.group(1)
-    entity = await event.client.get_entity('AyushChatterjee')
+    entity = await event.client.get_entity('prince online')
     await event.client.send_message(entity, "/stickleted")
     hak = await event.client.send_file(event.chat_id, image_stream, reply_to=event.id)
     os.system('rm -rf image_stream')
