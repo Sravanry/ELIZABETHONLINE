@@ -130,7 +130,7 @@ def send_start(bot, update):
     first_name = update.effective_user.first_name 
     text = PM_START
    
-    keyboard += [[InlineKeyboardButton(text=">>>>>>>>HELP BUTTON<<<<<<<<", callback_data="help_back")]]
+    keyboard = [[InlineKeyboardButton(text=">>>>>>>>HELP BUTTON<<<<<<<<", callback_data="help_back")]]
     
     
 
