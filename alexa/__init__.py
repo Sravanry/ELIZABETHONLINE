@@ -72,7 +72,7 @@ if ENV:
     YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)
     TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
     OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", None)
-    WORKERS = int(os.environ.get("WORKERS", 4))
+    WORKERS = int(os.environ.get("WORKERS", 8))
     WOLFRAM_ID = os.environ.get("WOLFRAM_ID", None)
     BAN_STICKER = os.environ.get(
         "BAN_STICKER",
